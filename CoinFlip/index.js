@@ -1,16 +1,16 @@
 'use strict';
 var Alexa = require('alexa-sdk');
-var APP_ID = undefined;  // TODO replace with your app ID (OPTIONAL).
+var APP_ID = 'amzn1.ask.skill.482c2d10-52fa-4c28-901b-03264078a771';
 
 var languageStrings = {
     "en-GB": {
         "translation": {
-            "FACTS": [
+            "FLIPS": [
                 "Heads.",
                 "Tails."
             ],
             "SKILL_NAME" : "British Coin Flip",
-            "GET_FACT_MESSAGE" : "Here's your flip: ",
+            "GET_FLIP_MESSAGE" : "Here's your flip: ",
             "HELP_MESSAGE" : "You can say flip a coin, or, you can say exit... What can I help you with?",
             "HELP_REPROMPT" : "What can I help you with?",
             "STOP_MESSAGE" : "Goodbye!"
@@ -18,12 +18,12 @@ var languageStrings = {
     },
     "en-US": {
         "translation": {
-            "FACTS": [
+            "FLIPS": [
                 "Heads.",
                 "Tails."
             ],
             "SKILL_NAME" : "American Coin Flip",
-            "GET_FACT_MESSAGE" : "Here's your flip: ",
+            "GET_FLIP_MESSAGE" : "Here's your flip: ",
             "HELP_MESSAGE" : "You can say flip a coin, or, you can say exit... What can I help you with?",
             "HELP_REPROMPT" : "What can I help you with?",
             "STOP_MESSAGE" : "Goodbye!"
@@ -42,20 +42,19 @@ exports.handler = function(event, context, callback) {
 
 var handlers = {
     'LaunchRequest': function () {
-        this.emit('GetFact');
+        this.emit('GetFlip');
     },
-    'GetNewFactIntent': function () {
-        this.emit('GetFact');
+    'GetNewFlipIntent': function () {
+        this.emit('GetFlip');
     },
-    'GetFact': function () {
-        // Get a random space fact from the space facts list
-        // Use this.t() to get corresponding language data
-        var factArr = this.t('FACTS');
+    'GetFlip': function () {
+        // Get a random coin flip
+        var factArr = this.t('FLIPS');
         var factIndex = Math.floor(Math.random() * factArr.length);
         var randomFact = factArr[factIndex];
 
         // Create speech output
-        var speechOutput = this.t("GET_FACT_MESSAGE") + randomFact;
+        var speechOutput = this.t("GET_FLIP_MESSAGE") + randomFact;
         this.emit(':tellWithCard', speechOutput, this.t("SKILL_NAME"), randomFact)
     },
     'AMAZON.HelpIntent': function () {
