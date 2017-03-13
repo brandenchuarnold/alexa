@@ -1,4 +1,4 @@
-e strict';
+'use strict';
 var Alexa = require('alexa-sdk');
 
 var APP_ID = "amzn1.ask.skill.5ea58613-feac-4754-9b7f-c442c00866af";
